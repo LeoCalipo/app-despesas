@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Controle de Despesas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-theme-color" content="#0f172a">
+</head>
+<body>
+  <div class="app-container" id="app">
+    <!-- Setup Screen -->
+    <section class="setup-screen" id="setupScreen">
+      <div class="glass-card">
+        <h1>Bem-vindo!</h1>
+        <p>Defina o valor fixo inicial para começarmos a controlar seus gastos.</p>
+        <div class="input-group">
+          <input type="number" id="initialValueInput" placeholder="Ex: 5000.00" inputmode="decimal">
+        </div>
+        <button id="btnSetInitialValue" class="btn-primary">Iniciar Aplicativo</button>
+      </div>
+    </section>
+
+    <!-- Main App Screen -->
+    <section class="main-screen hidden" id="mainScreen">
+      <header class="header">
+        <div class="balance-card">
+          <span class="label">Saldo Atual</span>
+          <h2 id="currentBalanceDisplay">R$ 0,00</h2>
+          <div class="fixed-value-badge">
+             Valor Fixo: <span id="fixedValueDisplay">R$ 0,00</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="content">
+        <div class="add-expense-card">
+          <h3>Nova Despesa</h3>
+          <div class="input-row">
+            <input type="text" id="expenseDescInput" placeholder="Descrição (Opcional)">
+            <input type="number" id="expenseValueInput" placeholder="Valor (R$)" inputmode="decimal">
+          </div>
+          <button id="btnAddExpense" class="btn-secondary">Descontar</button>
+        </div>
+
+        <div class="expenses-list-container">
+          <h3>Histórico de Descontos</h3>
+          <ul class="expenses-list" id="expensesList">
+            <!-- Items injected by JS -->
+          </ul>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <button id="btnResetApp" class="btn-danger">Reiniciar Aplicativo</button>
+      </footer>
+    </section>
+  </div>
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').then(reg => {
+          console.log('ServiceWorker registrou com sucesso:', reg.scope);
+        }).catch(err => {
+          console.log('Falha no ServiceWorker:', err);
+        });
+      });
+    }
+  </script>
+</body>
+</html>
