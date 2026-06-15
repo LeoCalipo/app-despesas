@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gastos-app-v1';
+const CACHE_NAME = 'gastos-app-v2';
 const urlsToCache = [
   './',
   './index.html',
@@ -6,7 +6,8 @@ const urlsToCache = [
   './app.js',
   './manifest.json',
   './icon-512.png',
-  'https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap'
+  'https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap',
+  'https://cdn.jsdelivr.net/npm/chart.js'
 ];
 
 self.addEventListener('install', event => {

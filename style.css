@@ -121,10 +121,109 @@ button {
   border: 1px solid var(--border-color);
   border-radius: 20px;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
-.add-expense-card h3 { margin-bottom: 16px; font-size: 1.1rem; }
-.input-row { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
 
+/* Toggle buttons for transaction type */
+.transaction-type-toggle {
+  display: flex;
+  background: rgba(15, 23, 42, 0.6);
+  padding: 4px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+}
+.type-btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  background: transparent;
+  color: var(--text-muted);
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+.type-btn.active {
+  background: var(--primary-color);
+  color: white;
+  box-shadow: 0 4px 10px rgba(99, 102, 241, 0.2);
+}
+.type-btn.active[data-type="income"] {
+  background: var(--secondary-color);
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
+}
+
+.input-row { display: flex; flex-direction: column; gap: 12px; }
+.input-group-row { display: flex; gap: 12px; }
+.input-group-row input, .input-group-row select { flex: 1; min-width: 0; }
+
+select {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background: rgba(15, 23, 42, 0.6);
+  color: var(--text-main);
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 40px;
+}
+select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+/* Stats Card & Chart */
+.stats-card {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.stats-card h3 { font-size: 1.1rem; }
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  margin: 0 auto;
+}
+.stats-summary {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+.stat-box {
+  flex: 1;
+  background: rgba(15, 23, 42, 0.4);
+  padding: 12px;
+  border-radius: 12px;
+  text-align: center;
+  border: 1px solid var(--border-color);
+}
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 4px;
+}
+.stat-val {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+.text-success { color: var(--secondary-color); }
+.text-danger { color: var(--danger-color); }
+
+/* Expenses/Transactions List */
 .expenses-list-container { flex: 1; display: flex; flex-direction: column; }
 .expenses-list-container h3 { margin-bottom: 16px; font-size: 1.1rem; color: var(--text-muted); }
 .expenses-list { list-style: none; display: flex; flex-direction: column; gap: 12px; overflow-y: auto; max-height: 40vh; padding-bottom: 20px; }
@@ -139,15 +238,27 @@ button {
 
 @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-.expense-info { display: flex; flex-direction: column; }
-.expense-desc { font-weight: 600; }
-.expense-val { color: var(--danger-color); font-weight: 700; font-size: 1.1rem; margin-top: 4px; }
+.expense-info { display: flex; flex-direction: column; gap: 4px; width: calc(100% - 50px); }
+.expense-desc-row { display: flex; align-items: center; gap: 8px; justify-content: space-between; }
+.expense-desc { font-weight: 600; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; max-width: 60%; }
+.expense-val { font-weight: 700; font-size: 1.1rem; }
+.expense-val.expense { color: #f87171; }
+.expense-val.income { color: var(--secondary-color); }
+
+.expense-meta-row { display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); }
+.expense-date { font-style: italic; }
+.expense-category-badge {
+  background: rgba(255,255,255,0.08);
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+}
 
 .btn-delete {
   background: rgba(239, 68, 68, 0.1); color: var(--danger-color);
-  border: none; border-radius: 50%; width: 40px; height: 40px;
+  border: none; border-radius: 50%; width: 36px; height: 36px; min-width: 36px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 1.2rem; cursor: pointer; transition: all 0.2s;
+  font-size: 1rem; cursor: pointer; transition: all 0.2s;
 }
 .btn-delete:active { background: var(--danger-color); color: white; }
 
